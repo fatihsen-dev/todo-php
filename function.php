@@ -7,6 +7,7 @@ class main
     public $password = "";
     public $database = "todos";
     public $connection;
+    public $conn;
     public $text;
     public $status;
     public $created;
@@ -14,7 +15,16 @@ class main
     function __construct()
     {
         // connection mysql
+        $this->conn = mysqli_connect($this->serverName, $this->userName, $this->password);
+
+        $sql = "CREATE DATABASE IF NOT EXISTS todos CHARACTER SET utf8";
+        $response = mysqli_query($this->conn, $sql);
+        
         $this->connection = mysqli_connect($this->serverName, $this->userName, $this->password, $this->database);
+        
+        $sql = "CREATE TABLE IF NOT EXISTS todo(id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,`text` VARCHAR(50) NOT NULL, status VARCHAR(50) NOT NULL, created VARCHAR(50))";
+        $response = mysqli_query($this->connection, $sql);
+        
         if (!$this->connection) {
             // bağlanılamadı!
             die(mysqli_connect_error());
