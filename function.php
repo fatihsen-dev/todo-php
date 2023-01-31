@@ -40,8 +40,8 @@ class main
         $created = date("Y-m-d");
         $sql = "INSERT INTO todo SET text='$text',status='$status', created='$created'";
         $response = mysqli_query($this->connection, $sql);
-
-        header("location:/todo-php");
+        $add = $_SERVER['REQUEST_URI'];
+        header("location: $add");
     }
     // get todos function
     function allTodo()
@@ -61,8 +61,8 @@ class main
 
         $sql = "DELETE FROM todo where id='$id'";
         $response = mysqli_query($this->connection, $sql);
-
-        header("location:/todo-php");
+        $add = $_SERVER['REQUEST_URI'];
+        header("location: $add");
     }
     // delete todo function
     function updateTodo($text, $id)
@@ -70,6 +70,7 @@ class main
 
         $sql = "UPDATE todo SET text='$text' where id='$id'";
         $response = mysqli_query($this->connection, $sql);
-        header("location:/todo-php");
+        $add = $_SERVER['REQUEST_URI'];
+        header("location: $add");
     }
 }
